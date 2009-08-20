@@ -1,19 +1,4 @@
 #---------- VIEWS
-# Then I see the view [template]
-# Then I should be redirected to [template]
-# Then I should see the "[link title]" link
-# Then I should not see the "[link title]" link
-# Then I should see the "[link title]" link to [link]
-# Then I should see a "[title]" button
-#
-
-Then /^I should see the view "([^\"]+)"$/ do |template_page|
-  response.should render_template(template_for(template_page))
-end
-
-Then /^I should be redirected to (.*)$/ do |template_page|
-  response.should render_template(template_for(template_page))
-end
 
 Then /^I should be forwarded to "([^\"]*)"$/ do |path|
   request.env["PATH_INFO"].should == path

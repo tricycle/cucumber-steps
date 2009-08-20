@@ -1,4 +1,6 @@
 #---------- DEBUG
+# Then debug page
+# Then debug page text
 
 Then /^debug page$/ do
   debug_page
