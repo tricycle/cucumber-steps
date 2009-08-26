@@ -55,6 +55,17 @@ Given /^the ([^\ ]*) has no ([^\ ]*)$/ do |model, field|
   instance_variable_get("@#{model}").update_attribute field.to_sym, nil
 end
 
+Given /^the ([^\ ]*) has a ([^\ ]*)$/ do |model, assoc|
+  tmp_model = instance_variable_get("@#{model}")
+  tmp_model.should_not be_nil
+  
+  new_record = assoc.classify.constantize.make
+  tmp_model.send(assoc.pluralize) << new_record
+  tmp_model.save
+  
+  instance_variable_set "@#{assoc}", new_record
+end
+
 Given /^there are ([^\ ]*) from the following table$/ do |model, table|
   klass = Kernel.const_get(model.singularize.classify)
   klass.should_not be_nil
