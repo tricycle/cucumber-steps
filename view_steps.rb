@@ -17,9 +17,13 @@ Then /^I should see the "([^\"]*)" link to (.*)$/ do |link_title, link_page|
 end
 
 Then /^I should see a "([^\"]*)" button$/ do |title|
-  if title =~ /^Choose File$/ 
+  if title =~ /^Choose File$/
     response.should have_tag("input[type=file]")
-  else  
+  else
     response.should have_tag("input[value=#{title}]")
-  end  
+  end
+end
+
+Then /^I should not see a "([^\"]*)" button$/ do |title|
+  response.should_not have_tag("input[value=#{title}]")
 end
