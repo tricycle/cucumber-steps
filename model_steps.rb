@@ -69,7 +69,7 @@ end
 Given /^the ([^\ ]*) facet has ([^\ ]*) ([^\ ]*)$/ do |model, count, search_model|
   klass = Kernel.const_get(search_model.singularize.classify)
   tmp_model = instance_variable_get("@#{model}")
-  klass.set_facet_counts(:"#{model}_ids", { tmp_model.id => count })
+  klass.set_facet_counts(:"#{model}_ids", { tmp_model.id => count.to_i })
 end
 
 Given /^there are ([^\ ]*) from the following table$/ do |model, table|
