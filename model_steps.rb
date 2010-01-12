@@ -66,6 +66,17 @@ Given /^the ([^\ ]*) has a ([^\ ]*)$/ do |model, assoc|
   instance_variable_set "@#{assoc}", new_record
 end
 
+Given /^the ([^\ ]*) has one ([^\ ]*)$/ do |model, assoc|
+  tmp_model = instance_variable_get("@#{model}")
+  tmp_model.should_not be_nil
+
+  new_record = assoc.classify.constantize.make
+  tmp_model.send "#{assoc}=", new_record
+  tmp_model.save
+
+  instance_variable_set "@#{assoc}", new_record
+end
+
 Given /^the ([^\ ]*) facet has ([^\ ]*) ([^\ ]*)$/ do |model, count, search_model|
   klass = Kernel.const_get(search_model.singularize.classify)
   tmp_model = instance_variable_get("@#{model}")
