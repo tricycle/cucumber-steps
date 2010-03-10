@@ -47,7 +47,7 @@ Given /^there is (?:a|an) ([^\ ]*) from ([^\ ]*) as ([^\ ]*)$/ do |model, record
   instance_variable_set("@#{model}", tmp_model)
 end
 
-Given /^the ([^\ ]*) has the ([^\ ]*) "([^\"]*)"$/ do |model, field, value|
+Given /^the ([^\ ]*) (?:has the|is) ([^\ ]*) "([^\"]*)"$/ do |model, field, value|
   instance_variable_get("@#{model}").update_attribute field.to_sym, value
 end
 
