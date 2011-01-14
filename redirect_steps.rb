@@ -4,7 +4,7 @@ end
 
 Then /^I should be redirected to "([^"]+)"$/ do |path|
   URI.parse(current_url).path.should == path
-  response.should be_success
+  page.driver.response.status.should == 200
 end
 
 Then /^it should have "([^"]+)" as the query string$/ do |query|
