@@ -1,3 +1,5 @@
+# coding: utf-8
+
 #---------- PAGINATION
 # Then I should not see pagination
 # Then I should see pagination
