@@ -171,6 +171,10 @@ Then /^I should see the ([^ ]*) fields ([^ ]+,[^ ]+)$/ do |model, fields|
   end
 end
 
+Then /^the "([^\"]*)" select field should be blank$/ do |field|
+  field_labeled(field).value.should == [""]
+end
+
 Then /^the "([^\"]*)" field should be blank$/ do |field|
   field_labeled(field).value.should be_blank
 end
