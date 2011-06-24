@@ -124,7 +124,7 @@ Given /^there are no ([^\ ]*)$/ do |models|
 end
 
 ############################
-Given /^there are "(.*)" (.*)$/ do |size, models|
+Given /^there are "(\d+)" (\w+)$/ do |size, models|
   klass = Kernel.const_get(models.classify)
   klass.should_not be_nil
 
