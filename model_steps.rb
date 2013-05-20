@@ -152,14 +152,14 @@ Then /^I should see the ([^\ ]*) field ([^\ ]*)$/ do |model, field|
   tmp_model = instance_variable_get("@#{model}")
   tmp_model.should_not be_nil
 
-  Then %{I should see "#{tmp_model[field.to_sym]}"}
+  step %{I should see "#{tmp_model[field.to_sym]}"}
 end
 
 Then /^I should not see the ([^\ ]*) field ([^\ ]*)$/ do |model, field|
   tmp_model = instance_variable_get("@#{model}")
   tmp_model.should_not be_nil
 
-  Then %{I should not see "#{tmp_model[field.to_sym]}"}
+  step %{I should not see "#{tmp_model[field.to_sym]}"}
 end
 
 Then /^I should see the ([^ ]*) fields ([^ ]+,[^ ]+)$/ do |model, fields|
@@ -167,7 +167,7 @@ Then /^I should see the ([^ ]*) fields ([^ ]+,[^ ]+)$/ do |model, fields|
   tmp_model.should_not be_nil
 
   fields.split(',').each do |field|
-    Then %{I should see "#{tmp_model[field.to_sym]}"}
+    step %{I should see "#{tmp_model[field.to_sym]}"}
   end
 end
 
@@ -188,3 +188,4 @@ Then /^there should be an assigned ([^\ ]*) with (.*) "([^\"]*)"$/ do |model, fi
   assigns[model].should_not be_nil
   assigns[model].send(field.to_sym).should == field_value
 end
+

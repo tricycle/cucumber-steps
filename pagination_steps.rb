@@ -47,7 +47,7 @@ Then /^I should see a disabled link to the previous page of pagination$/ do
 end
 
 When /^I click the next page link$/ do
-  click_link 'Next »'
+  click_link 'Next'
 end
 
 Given /^pagination setup to show page "([^\"]*)" of "([^\"]*)" entries for ([^\ ]*)$/ do |page, total_entries, model|
