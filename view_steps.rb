@@ -27,3 +27,23 @@ end
 Then /^I should not see a "([^\"]*)" button$/ do |title|
   response.should_not have_tag("*[value=#{title}]")
 end
+
+Then /^I should see a "([^"]*)" select$/ do |id|
+  response.should have_tag("select[id=#{id}]")
+end
+
+Then /^"([^"]*)" select should have option "([^"]*)"$/ do |select_id, option|
+  response.should have_tag("select[id=#{select_id}]") do
+    with_tag("option", :value => option)
+  end
+end
+
+Then /^"([^"]*)" select should have selected option "([^"]*)"$/ do |select_id, option|
+  response.should have_tag("select[id=#{select_id}]") do
+    with_tag("option", :value => option, :selected => "selected")
+  end
+end
+
+When /^I choose option "([^"]*)" from select "([^"]*)"$/ do |option, select_id|
+  select option, :from => select_id
+end
