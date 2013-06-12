@@ -147,6 +147,14 @@ When /^I enter a valid (.*) (.*) into "([^\"]*)"$/ do |model, field, form_field|
   fill_in(form_field, :with => tmp_model[field.to_sym])
 end
 
+When /^I select a valid (.*) (.*) from "([^\"]*)"$/ do |model, field, form_field|
+  klass = Kernel.const_get(model.classify)
+  klass.should_not be_nil
+
+  tmp_model = klass.make_unsaved
+  select tmp_model[field.to_sym], :from => form_field
+end
+
 ############################
 Then /^I should see the ([^\ ]*) field ([^\ ]*)$/ do |model, field|
   tmp_model = instance_variable_get("@#{model}")
