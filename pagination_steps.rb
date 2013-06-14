@@ -21,11 +21,11 @@ Then /^I should see pagination$/ do
 end
 
 Then /^I should see the first page of pagination$/ do
-  page.should have_xpath("//div[@id='pager']//span[@class='current']", :text => '1')
+  page.should have_xpath("//div[@id='pager']//em[@class='current']", :text => '1')
 end
 
 Then /^I should see the second page of pagination$/ do
-  page.should have_xpath("//div[@id='pager']//span[@class='current']", :text => '2')
+  page.should have_xpath("//div[@id='pager']//em[@class='current']", :text => '2')
 end
 
 Then /^I should see a link to the next page of pagination$/ do
@@ -52,6 +52,6 @@ Given /^pagination setup to show page "([^\"]*)" of "([^\"]*)" entries for ([^\ 
   klass = Kernel.const_get(model.classify)
   klass.should_not be_nil
 
-  mock_pagination = [].paginate(:page => page, :per_page => 10, :total_entries => total_entries)
-  klass.stub!(:at_page).and_return(mock_pagination)
+  mock_pagination = klass.paginate(:page => page, :per_page => 10, :total_entries => total_entries)
+  klass.stub(:at_page).and_return(mock_pagination)
 end

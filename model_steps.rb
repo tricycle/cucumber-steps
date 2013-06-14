@@ -145,6 +145,7 @@ When /^I enter a valid (.*) (.*) into "([^\"]*)"$/ do |model, field, form_field|
 
   tmp_model = klass.make_unsaved
   fill_in(form_field, :with => tmp_model[field.to_sym])
+  instance_variable_set("@temp_#{field}", tmp_model[field.to_sym])
 end
 
 When /^I select a valid (.*) (.*) from "([^\"]*)"$/ do |model, field, form_field|
