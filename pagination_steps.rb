@@ -21,27 +21,39 @@ Then /^I should see pagination$/ do
 end
 
 Then /^I should see the first page of pagination$/ do
-  page.should have_xpath("//div[@id='pager']//em[@class='current']", :text => '1')
+  within('div#pager') do
+    page.should have_selector('em.current', text: '1')
+  end
 end
 
 Then /^I should see the second page of pagination$/ do
-  page.should have_xpath("//div[@id='pager']//em[@class='current']", :text => '2')
+  within('div#pager') do
+    page.should have_selector('em.current', text: '2')
+  end
 end
 
 Then /^I should see a link to the next page of pagination$/ do
-  page.should have_xpath("//div[@id='pager']//a[@class='next_page']")
+  within('div#pager') do
+    page.should have_selector('a.next_page')
+  end
 end
 
 Then /^I should see a link to the previous page of pagination$/ do
-  page.should have_xpath("//div[@id='pager']//a[@class='prev_page']")
+  within('div#pager') do
+    page.should have_selector('a.previous_page')
+  end
 end
 
 Then /^I should see a disabled link to the next page of pagination$/ do
-  page.should have_xpath("//div[@id='pager']//span[@class='disabled next_page']")
+  within('div#pager') do
+    page.should have_selector('span.next_page.disabled')
+  end
 end
 
 Then /^I should see a disabled link to the previous page of pagination$/ do
-  page.should have_xpath("//div[@id='pager']//span[@class='disabled prev_page']")
+  within('div#pager') do
+    page.should have_selector('span.previous_page.disabled')
+  end
 end
 
 When /^I click the next page link$/ do
