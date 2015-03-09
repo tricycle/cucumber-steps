@@ -27,7 +27,7 @@ Given /^there is (?:a|an) ([^\ ]*)$/ do |model|
   klass = Kernel.const_get(model.classify)
   klass.should_not be_nil
 
-  tmp_model = klass.make
+  tmp_model = FactoryGirl.create(klass.to_s.underscore.to_sym)
   instance_variable_set("@#{model}", tmp_model)
 end
 
@@ -35,7 +35,7 @@ Given /^there is (?:a|an) ([^\ ]*) with ([^\ ]*) "([^\"]*)"$/ do |model, field, 
   klass = Kernel.const_get(model.singularize.classify)
   klass.should_not be_nil
 
-  tmp_model = klass.make(field.to_sym => value)
+  tmp_model = FactoryGirl.create(klass.to_s.underscore.to_sym, field.to_sym => value)
   instance_variable_set("@#{model}", tmp_model)
 end
 
@@ -43,7 +43,7 @@ Given /^there is (?:a|an) ([^\ ]*) from ([^\ ]*) as ([^\ ]*)$/ do |model, record
   klass = Kernel.const_get(model.singularize.classify)
   klass.should_not be_nil
 
-  tmp_model = klass.make(field.to_sym => instance_variable_get("@#{record}"))
+  tmp_model = FactoryGirl.create(klass.to_s.underscore.to_sym, field.to_sym => instance_variable_get("@#{record}"))
   instance_variable_set("@#{model}", tmp_model)
 end
 
@@ -59,7 +59,7 @@ Given /^the ([^\ ]*) has a ([^\ ]*)$/ do |model, assoc|
   tmp_model = instance_variable_get("@#{model}")
   tmp_model.should_not be_nil
 
-  new_record = assoc.classify.constantize.make
+  new_record = FactoryGirl.create(assoc.singularize.to_sym)
   tmp_model.send(assoc.pluralize) << new_record
   tmp_model.save
 
@@ -70,7 +70,7 @@ Given /^the ([^\ ]*) has one ([^\ ]*)$/ do |model, assoc|
   tmp_model = instance_variable_get("@#{model}")
   tmp_model.should_not be_nil
 
-  new_record = assoc.classify.constantize.make
+  new_record = FactoryGirl.create(assoc.singularize.to_sym)
   tmp_model.send "#{assoc}=", new_record
   tmp_model.save
 
@@ -87,7 +87,7 @@ Given /^another ([^\ ]*) facet has ([^\ ]*) ([^\ ]*)$/ do |model, count, search_
   klass = Kernel.const_get(search_model.singularize.classify)
 
   original_model = instance_variable_get("@#{model}")
-  tmp_model = original_model.class.make
+  tmp_model = FactoryGirl.create(original_model.class.to_s.underscore.to_sym)
 
   klass.set_facet_counts(:"#{model}_ids", { original_model.id => 10, tmp_model.id => count.to_i })
 end
@@ -97,7 +97,7 @@ Given /^there are ([^\ ]*) from the following table$/ do |model, table|
   klass.should_not be_nil
 
   table.hashes.each do |item|
-    klass.make(item)
+    FactoryGirl.create(klass.to_s.underscore.to_sym, item)
   end
 end
 
@@ -131,7 +131,7 @@ Given /^there are "(.*)" (.*)$/ do |size, models|
   records = klass.find(:all)
   # add required users
   records.length.upto(size.to_i - 1) do
-    records << klass.make
+    records << FactoryGirl.create(klass.to_s.underscore.to_sym)
   end
 
   instance_variable_set("@#{models.pluralize}", records)
@@ -143,7 +143,7 @@ When /^I enter a valid (.*) (.*) into "([^\"]*)"$/ do |model, field, form_field|
   klass = Kernel.const_get(model.classify)
   klass.should_not be_nil
 
-  tmp_model = klass.make_unsaved
+  tmp_model = FactoryGirl.build(klass.to_s.underscore.to_sym)
   fill_in(form_field, :with => tmp_model[field.to_sym])
   instance_variable_set("@temp_#{field}", tmp_model[field.to_sym])
 end
@@ -152,7 +152,7 @@ When /^I select a valid (.*) (.*) from "([^\"]*)"$/ do |model, field, form_field
   klass = Kernel.const_get(model.classify)
   klass.should_not be_nil
 
-  tmp_model = klass.make_unsaved
+  tmp_model = FactoryGirl.build(klass.to_s.underscore.to_sym)
   select tmp_model[field.to_sym], :from => form_field
 end
 
