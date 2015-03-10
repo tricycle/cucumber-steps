@@ -161,7 +161,7 @@ Then /^I should see the ([^\ ]*) field ([^\ ]*)$/ do |model, field|
   tmp_model = instance_variable_get("@#{model}")
   tmp_model.should_not be_nil
 
-  step %{I should see "#{tmp_model[field.to_sym]}"}
+  page.should have_text(tmp_model[field.to_sym])
 end
 
 Then /^I should not see the ([^\ ]*) field ([^\ ]*)$/ do |model, field|
